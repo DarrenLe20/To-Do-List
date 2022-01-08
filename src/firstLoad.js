@@ -99,6 +99,7 @@ function loadContent() {
   function displayTasks(projectBtn) {
     projectBtn.addEventListener("click", () => {
       title.textContent = projectBtn.textContent;
+      addTaskBtn.setAttribute("id", title.textContent);
       // Clear screen
       while (tasks.firstChild) {
         tasks.removeChild(tasks.firstChild);
@@ -129,10 +130,17 @@ function loadContent() {
   const addTaskBtn = document.createElement("button");
   addTaskBtn.textContent = " + New task";
   addTaskBtn.classList.add("newTask");
+
+  // Add new Task to the Project
   addTaskBtn.addEventListener("click", () => {
     let name = prompt("Enter the name of the task:");
     if (name) {
       const task = new Task(name);
+      for (let i = 0; i < projectArr.length; i++) {
+        if (projectArr[i].getName() == addTaskBtn.id) {
+          projectArr[i].addTask(task);
+        }
+      }
       const taskName = document.createElement("div");
       taskName.textContent = task.getName();
       const taskTile = document.createElement("span");

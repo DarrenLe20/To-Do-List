@@ -133,10 +133,11 @@ body {
   padding-top: 10px;
   padding-bottom: 10px;
   display: flex;
+  width: 90%;
 }
 
 .taskTile:hover {
-  background-color: gray;
+  background-color: #ebebeb;
 }
 
 .footer {
