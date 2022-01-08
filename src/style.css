@@ -109,24 +109,34 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#newTask {
+.newTask {
   border: 0;
   cursor: pointer;
   font-size: larger;
   font-weight: bold;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   background: white;
   width: 90%;
   text-align: left;
 }
 
-#newTask:active {
+.newTask:active {
   transform: translateY(2px);
 }
 
-#newTask:hover {
+.newTask:hover {
   background-color: #ebebeb;
+}
+
+.taskTile {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+}
+
+.taskTile:hover {
+  background-color: gray;
 }
 
 .footer {
