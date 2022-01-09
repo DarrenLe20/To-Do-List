@@ -65,8 +65,8 @@ function loadContent() {
   projects.appendChild(exampleTile).classList.add("tile");
   exampleTile.appendChild(exampleName);
   displayTasks(exampleTile);
-  const task1 = new Task("This is where your tasks show", "12/31/2022");
-  const task2 = new Task("This is another task", "11/12/2023");
+  const task1 = new Task("This is where your tasks show up", "12/31/2022");
+  const task2 = new Task("The deadline is on the right", "11/12/2023");
   const task3 = new Task(
     "Click on the calendar symbol to change deadline",
     "01/05/2024"
@@ -117,11 +117,13 @@ function loadContent() {
     const arr = project.getTasks();
     for (let i = 0; i < arr.length; i++) {
       const taskName = document.createElement("div");
-      console.log(arr[i].getName());
+      const taskDate = document.createElement("div");
       taskName.textContent = arr[i].getName();
+      taskDate.textContent = arr[i].getDate();
       const taskTile = document.createElement("span");
       tasks.appendChild(taskTile).classList.add("taskTile");
       taskTile.appendChild(taskName);
+      taskTile.appendChild(taskDate);
     }
   }
 
