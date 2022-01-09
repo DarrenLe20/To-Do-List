@@ -38,8 +38,42 @@ function storageAvailable(type) {
 
 // Load content of the page
 function loadContent() {
+  let name = null;
+  // Get user input
+  const form = document.createElement("form");
+  const getInput = document.createElement("input");
+  const btnModal = document.createElement("div");
+  getInput.setAttribute("id", "ProjectInput");
+  getInput.setAttribute("type", "text");
+  getInput.setAttribute("placeholder", "Enter your Project's name");
+  const submitbtn = document.createElement("button");
+  submitbtn.textContent = "Submit";
+  submitbtn.setAttribute("class", "Submit");
+  submitbtn.setAttribute("type", "button");
+  form.appendChild(getInput);
+  form.appendChild(btnModal);
+  btnModal.appendChild(submitbtn);
+  // Create new Project when submitting the form
+  submitbtn.addEventListener("click", () => {
+    name = document.getElementById("ProjectInput").value;
+    if (name) {
+      let project = new Project(name);
+      projectArr.push(project);
+      const project1 = document.createElement("div");
+      const projectTile = document.createElement("span");
+      project1.textContent = project.getName();
+      projects.appendChild(projectTile).classList.add("tile");
+      projectTile.appendChild(project1);
+      displayTasks(projectTile);
+    }
+    // Hide form and show button again
+    form.style.display = "none";
+    addProjectBtn.style.display = "flex";
+  });
+
   // Project array
   const projectArr = [];
+
   // Header content
   const homeBtn = document.createElement("button");
   homeBtn.textContent = "To-Do-List";
@@ -53,7 +87,7 @@ function loadContent() {
   const tasklist = document.createElement("div");
   const addProjectBtn = document.createElement("button");
   addProjectBtn.textContent = " + New Project";
-  addProjectBtn.setAttribute("id", "newProject");
+  addProjectBtn.classList.add("newProject");
 
   // Template Project
   const example = document.createElement("div");
@@ -77,25 +111,15 @@ function loadContent() {
 
   // Create new Project button
   addProjectBtn.addEventListener("click", () => {
-    // Get user input
-    let name = prompt("Name of the Project: ");
-    if (name) {
-      let project = new Project(name);
-      projectArr.push(project);
-      // Example:
-      const project1 = document.createElement("div");
-      const projectTile = document.createElement("span");
-      project1.textContent = project.getName();
-      projects.appendChild(projectTile).classList.add("tile");
-      projectTile.appendChild(project1);
-      displayTasks(projectTile);
-    }
+    // Hide the button and display form when clicked
+    addProjectBtn.style.display = "none";
+    form.style.display = "flex";
   });
 
   const title = document.createElement("p");
   title.textContent = "Welcome to your To Do List!";
 
-  // Display tasks in a project when chosen
+  // Display tasks in a project
   function displayTasks(projectBtn) {
     projectBtn.addEventListener("click", () => {
       title.textContent = projectBtn.textContent;
@@ -113,6 +137,7 @@ function loadContent() {
     });
   }
 
+  // Display all tasks in a project when chosen
   function showAll(project) {
     const arr = project.getTasks();
     for (let i = 0; i < arr.length; i++) {
@@ -151,14 +176,18 @@ function loadContent() {
     }
   });
 
-  // Build basic UI
+  // Build UI
   page.appendChild(header).classList.add("header");
   header.appendChild(homeBtn).classList.add("homeBtn");
 
   page.appendChild(mid).classList.add("mid");
   mid.appendChild(projectList).classList.add("projectList");
   projectList.appendChild(projects).classList.add("allProjects");
+
+  projectList.appendChild(form);
+  form.style.display = "none";
   projectList.appendChild(addProjectBtn);
+
   mid.appendChild(tasklist).classList.add("taskList");
   tasklist.appendChild(title).classList.add("title");
   tasklist.appendChild(tasks).classList.add("allTasks");

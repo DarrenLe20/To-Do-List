@@ -39,7 +39,7 @@ body {
   min-height: calc((100vh - 50px - 65px));
 }
 
-#newProject {
+.newProject {
   margin-bottom: 60px;
   padding-left: 20px;
   padding-bottom: 20px;
@@ -52,8 +52,20 @@ body {
   text-align: left;
 }
 
-#newProject:hover {
+.newProject:hover {
   background-color: gray;
+}
+
+form {
+  display: flex;
+  padding-left: 20px;
+  flex-direction: column;
+}
+
+input {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 200px;
 }
 
 .taskList {
