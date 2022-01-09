@@ -9,7 +9,7 @@ class Project {
   }
 
   setName(name) {
-    this.name = namme;
+    this.name = name;
   }
 
   getTasks() {

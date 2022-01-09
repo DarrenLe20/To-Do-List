@@ -152,13 +152,42 @@ function loadContent() {
     const arr = project.getTasks();
     for (let i = 0; i < arr.length; i++) {
       const taskName = document.createElement("div");
-      const taskDate = document.createElement("div");
+      const dateFunction = document.createElement("div");
+      const taskDate = document.createElement("button");
+      const datePicker = document.createElement("input");
+      datePicker.setAttribute("type", "date");
+      const submitDate = document.createElement("button");
+      submitDate.setAttribute("type", "button");
+      submitDate.textContent = "Submit";
+      // Create new Deadline
+      submitDate.addEventListener("click", () => {
+        let date = datePicker.value;
+        if (date != null) {
+          arr[i].setDate(new Date(date + " 00:00"));
+          taskDate.textContent = arr[i].getDate();
+          datePicker.style.display = "none";
+          submitDate.style.display = "none";
+          taskDate.style.display = "flex";
+        }
+      });
+      taskDate.addEventListener("click", () => {
+        datePicker.style.display = "flex";
+        submitDate.style.display = "flex";
+        taskDate.style.display = "none";
+      });
+
+      dateFunction.appendChild(taskDate).classList.add("taskDate");
+      dateFunction.appendChild(datePicker);
+      datePicker.style.display = "none";
+      dateFunction.appendChild(submitDate);
+      submitDate.style.display = "none";
+
       taskName.textContent = arr[i].getName();
       taskDate.textContent = arr[i].getDate();
       const taskTile = document.createElement("span");
-      tasks.appendChild(taskTile).classList.add("taskTile");
+      tasks.insertBefore(taskTile, tasks.lastChild).classList.add("taskTile");
       taskTile.appendChild(taskName);
-      taskTile.appendChild(taskDate);
+      taskTile.appendChild(dateFunction);
     }
   }
 
@@ -171,18 +200,54 @@ function loadContent() {
   // Add new Task to the Project
   addTaskBtn.addEventListener("click", () => {
     let name = prompt("Enter the name of the task:");
+    let pro = "";
     if (name) {
       const task = new Task(name);
       for (let i = 0; i < projectArr.length; i++) {
         if (projectArr[i].getName() == addTaskBtn.id) {
+          pro = projectArr[i];
           projectArr[i].addTask(task);
         }
       }
       const taskName = document.createElement("div");
       taskName.textContent = task.getName();
+      const dateFunction = document.createElement("div");
+      const taskDate = document.createElement("button");
+      const datePicker = document.createElement("input");
+      datePicker.setAttribute("type", "date");
+      const submitDate = document.createElement("button");
+      submitDate.setAttribute("type", "button");
+      submitDate.textContent = "Submit";
+      // Create new Deadline
+      submitDate.addEventListener("click", () => {
+        let date = datePicker.value;
+        if (date != null) {
+          task.setDate(new Date(date + " 00:00"));
+          taskDate.textContent = task.getDate();
+          datePicker.style.display = "none";
+          submitDate.style.display = "none";
+          taskDate.style.display = "flex";
+        }
+      });
+      taskDate.addEventListener("click", () => {
+        datePicker.style.display = "flex";
+        submitDate.style.display = "flex";
+        taskDate.style.display = "none";
+      });
+
+      dateFunction.appendChild(taskDate).classList.add("taskDate");
+      dateFunction.appendChild(datePicker);
+      datePicker.style.display = "none";
+      dateFunction.appendChild(submitDate);
+      submitDate.style.display = "none";
+
+      taskName.textContent = task.getName();
+      taskDate.textContent = task.getDate();
+
       const taskTile = document.createElement("span");
       tasks.insertBefore(taskTile, tasks.lastChild).classList.add("taskTile");
       taskTile.appendChild(taskName);
+      taskTile.appendChild(dateFunction);
     }
   });
 

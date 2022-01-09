@@ -150,10 +150,23 @@ input {
   width: 90%;
   font-size: larger;
   justify-content: space-between;
+  gap: 200px;
 }
 
 .taskTile:hover {
   background-color: #ebebeb;
+}
+
+.taskTile:hover .taskDate,
+.taskTile.hover .taskDate {
+  background-color: #ebebeb;
+}
+
+.taskDate {
+  border: 0;
+  cursor: pointer;
+  font-size: large;
+  background-color: white;
 }
 
 .footer {
