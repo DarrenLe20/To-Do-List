@@ -41,11 +41,21 @@ function loadContent() {
   let name = null;
   // Get user input
   const form = document.createElement("form");
+  // Prevent page refreshing when submitting
+  form.setAttribute("onSubmit", "return false");
+  // Build the Form
   const getInput = document.createElement("input");
   const btnModal = document.createElement("div");
   getInput.setAttribute("id", "ProjectInput");
   getInput.setAttribute("type", "text");
   getInput.setAttribute("placeholder", "Enter your Project's name");
+  // Support submission by pressing "Enter"
+  getInput.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+      //event.preventDefault();
+      submitbtn.click();
+    }
+  });
   const submitbtn = document.createElement("button");
   submitbtn.textContent = "Submit";
   submitbtn.setAttribute("class", "Submit");
@@ -66,7 +76,7 @@ function loadContent() {
       projectTile.appendChild(project1);
       displayTasks(projectTile);
     }
-    // Hide form and show button again
+    // Hide form and show New Project button again
     form.style.display = "none";
     addProjectBtn.style.display = "flex";
   });
